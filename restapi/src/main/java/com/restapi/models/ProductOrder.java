@@ -2,7 +2,7 @@ package com.restapi.models;
 
 
 import jakarta.persistence.*;
-
+// Drop column ID add
 @Entity
 @Table(name = "Product_Order")
 public class ProductOrder {
