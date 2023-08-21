@@ -26,6 +26,9 @@ public class Product {
     @Min(value = 0, message = "The price cannot be less than 0")
     private long price;
 
+    @OneToMany(mappedBy = "product")
+    List<ProductOrder> orders;
+
     public Product() {
     }
 
@@ -67,4 +70,11 @@ public class Product {
         this.price = price;
     }
 
+    public List<ProductOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<ProductOrder> orders) {
+        this.orders = orders;
+    }
 }

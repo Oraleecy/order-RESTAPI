@@ -2,25 +2,29 @@ package com.restapi.models;
 
 
 import jakarta.persistence.*;
-// Drop column ID add
+
+import java.io.Serializable;
+
+
 @Entity
-@Table(name = "Product_Order")
-public class ProductOrder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    int id;
+@Table(name = "product_order")
+public class ProductOrder implements Serializable {
+
+    @EmbeddedId
+    private ProductOrderKey id;
 
     @ManyToOne
+    @MapsId("orderId")
     @JoinColumn(name = "order_id")
-    Order order;
+    private Order order;
 
     @ManyToOne
+    @MapsId("productId")
     @JoinColumn(name = "product_id")
-    Product product;
+    private Product product;
 
     @Column(name = "quantity")
-    int quantity;
+    private int quantity;
 
     public ProductOrder() {
     }
@@ -31,11 +35,11 @@ public class ProductOrder {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public ProductOrderKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ProductOrderKey id) {
         this.id = id;
     }
 
