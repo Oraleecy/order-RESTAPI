@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/changes/001-clear-schema.sql
+  - include:
+      file: classpath:/db/changelog/changes/002-initial-schema.sql
