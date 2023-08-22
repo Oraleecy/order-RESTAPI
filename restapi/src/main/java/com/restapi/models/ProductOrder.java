@@ -1,7 +1,13 @@
 package com.restapi.models;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
 
