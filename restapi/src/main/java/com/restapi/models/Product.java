@@ -1,25 +1,22 @@
 package com.restapi.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "name")
     @Size(min = 2, max = 200, message = "Field must be greater than 2 and less than 200")
     private String name;
@@ -30,25 +27,21 @@ public class Product {
     private String description;
     @Column(name = "price")
     @Min(value = 0, message = "The price cannot be less than 0")
-    private long price;
-
-    @OneToMany(mappedBy = "product")
-    List<ProductOrder> orders;
-
+    private BigDecimal price;
     public Product() {
     }
 
-    public Product(String name, String description, long price) {
+    public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,19 +61,11 @@ public class Product {
         this.description = description;
     }
 
-    public long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public List<ProductOrder> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<ProductOrder> orders) {
-        this.orders = orders;
     }
 }

@@ -1,34 +1,36 @@
 package com.restapi.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "order")
+@Table(name = "\"order\"")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    private Long id;
     @Column(name = "date_of_creation")
-    Date dateOfCreation;
+    private Date dateOfCreation;
+
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    StatusOrder status;
+    private StatusOrder status;
 
     @OneToMany(mappedBy = "order")
-    List<ProductOrder> orders;
+    private List<ProductOrder> ProductOrders;
 
     public Order() {
     }
@@ -62,11 +64,11 @@ public class Order {
         this.status = status;
     }
 
-    public List<ProductOrder> getOrders() {
-        return orders;
+    public List<ProductOrder> getProductOrders() {
+        return ProductOrders;
     }
 
     public void setOrders(List<ProductOrder> orders) {
-        this.orders = orders;
+        this.ProductOrders = orders;
     }
 }
