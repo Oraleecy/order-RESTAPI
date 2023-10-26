@@ -1,15 +1,16 @@
 package com.restapi.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 
 @Entity
@@ -17,14 +18,15 @@ import java.io.Serializable;
 public class ProductOrder implements Serializable {
 
     @EmbeddedId
-    private ProductOrderKey id;
+    private ProductOrderKey productOrderKey;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @MapsId("orderId")
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
@@ -41,13 +43,6 @@ public class ProductOrder implements Serializable {
         this.quantity = quantity;
     }
 
-    public ProductOrderKey getId() {
-        return id;
-    }
-
-    public void setId(ProductOrderKey id) {
-        this.id = id;
-    }
 
     public Order getOrder() {
         return order;

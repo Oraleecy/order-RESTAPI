@@ -1,36 +1,20 @@
 package com.restapi.models;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-
 @Embeddable
 public class ProductOrderKey implements Serializable {
-    @Column(name = "order_id")
     private Long orderId;
-
-    @Column(name = "product_id")
     private Long productId;
 
     public ProductOrderKey() {
     }
 
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
+    public ProductOrderKey(Long orderId, Long productId) {
         this.orderId = orderId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -46,7 +30,4 @@ public class ProductOrderKey implements Serializable {
     public int hashCode() {
         return Objects.hash(orderId, productId);
     }
-
-
 }
-
